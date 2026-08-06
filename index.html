@@ -12,7 +12,10 @@
       --card-bg: #161b22;
       --text-main: #e6edf3;
       --text-muted: #8b949e;
-      --accent: #58a6ff;
+      
+      /* TRANSIT BLUE ACCENT COLOR */
+      --accent: #3b82f6; 
+      
       --border: #30363d;
       --transition: all 0.2s ease-in-out;
     }
@@ -56,6 +59,16 @@
       margin-bottom: 3rem;
     }
 
+    .profile-pic {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--accent);
+      background-color: var(--card-bg); /* visible if image doesn't load */
+    }
+
     .hero h1 {
       font-size: 2.75rem;
       font-weight: 700;
@@ -63,10 +76,17 @@
       letter-spacing: -0.5px;
     }
 
-    .hero p {
+    .hero .subtitle {
       font-size: 1.25rem;
+      color: var(--text-main);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .hero .summary {
+      font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 1.5rem auto;
     }
 
@@ -76,6 +96,7 @@
       justify-content: center;
       gap: 1.25rem;
       margin-top: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .social-btn {
@@ -92,18 +113,28 @@
     }
 
     .social-btn:hover {
-      border-color: var(--text-muted);
+      border-color: var(--accent);
       background-color: #1f242c;
       text-decoration: none;
       transform: translateY(-2px);
     }
 
-    /* --- PROJECTS SECTION --- */
+    /* --- SECTIONS --- */
     .section-title {
       font-size: 1.75rem;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skills-section {
+      margin-bottom: 3rem;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.75rem;
     }
 
@@ -113,7 +144,7 @@
       gap: 1.5rem;
     }
 
-    /* --- PROJECT CARD STYLING --- */
+    /* --- CARD & TAG STYLING --- */
     .project-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border);
@@ -174,10 +205,19 @@
       font-size: 0.75rem;
       padding: 0.2rem 0.6rem;
       border-radius: 12px;
-      background-color: rgba(88, 166, 255, 0.1);
+      
+      /* Updated for Transit Blue transparency */
+      background-color: rgba(59, 130, 246, 0.1); 
       color: var(--accent);
-      border: 1px solid rgba(88, 166, 255, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      
       font-weight: 500;
+    }
+
+    /* Make skills tags slightly larger */
+    .skills-container .tag {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
     }
 
     /* --- FOOTER --- */
@@ -203,8 +243,16 @@
          HERO & BIO SECTION
          ========================================== -->
     <header class="hero">
+      <!-- Profile Picture -->
+      <img src="profile.jpg" alt="Wei Guang Lok" class="profile-pic" onerror="this.style.display='none'">
+      
       <h1>Wei Guang LOK</h1>
-      <p>Electrical Engineer.</p>
+      <p class="subtitle">Electrical Engineer | Public Transport & Green Tech Enthusiast</p>
+      
+      <!-- Professional Summary -->
+      <p class="summary">
+        Bridging the gap between electrical engineering and sustainable, modern infrastructure. Passionate about solving complex problems in transit and clean technologies through innovative design and code.
+      </p>
       
       <!-- SOCIAL PROFILES -->
       <div class="social-links">
@@ -214,89 +262,94 @@
         <a href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer" class="social-btn">
           <i class="fa-brands fa-linkedin"></i> LinkedIn
         </a>
+        <a href="mailto:your.email@example.com" class="social-btn">
+          <i class="fa-solid fa-envelope"></i> Email
+        </a>
       </div>
     </header>
 
     <!-- ==========================================
-         PROJECTS SECTION
+         SKILLS SECTION
          ========================================== -->
     <main>
-      <h2 class="section-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
-      
-      <div class="projects-grid">
+      <section class="skills-section">
+        <h2 class="section-title"><i class="fa-solid fa-microchip"></i> Core Skills</h2>
+        <div class="skills-container">
+          <span class="tag">Electrical Engineering</span>
+          <span class="tag">Verilog</span>
+          <span class="tag">Python</span>
+          <span class="tag">Sustainable Tech</span>
+          <!-- Add more skills here -->
+        </div>
+      </section>
 
-        <!-- ===================================================================
-             PROJECT CARD TEMPLATE 
-             ===================================================================
-             To add a new project:
-             1. Copy the entire <article> block below from <article> to </article>.
-             2. Paste it right ABOVE or BELOW existing cards inside .projects-grid.
-             3. Update the Title, Description, GitHub/Live Links, and Tech Tags.
-             =================================================================== -->
+      <!-- ==========================================
+           PROJECTS SECTION
+           ========================================== -->
+      <section id="projects">
+        <h2 class="section-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
         
-        <!-- PROJECT 1 -->
-        <article class="project-card">
-          <div>
-            <div class="project-header">
-              <!-- PROJECT TITLE -->
-              <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project One</a>
-              
-              <!-- PROJECT LINKS (GitHub Repo & Live Demo) -->
-              <div class="project-links">
-                <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#" target="_blank" title="Live Demo">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+        <div class="projects-grid">
+
+          <!-- PROJECT 1 -->
+          <article class="project-card">
+            <div>
+              <div class="project-header">
+                <!-- PROJECT TITLE -->
+                <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project One</a>
+                
+                <!-- PROJECT LINKS -->
+                <div class="project-links">
+                  <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="#" target="_blank" title="Live Demo">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
               </div>
+
+              <!-- PROJECT DESCRIPTION -->
+              <p class="project-description">
+                Developed a solution to [specific problem] resulting in [specific metric or outcome]. Focused on integrating hardware constraints with software efficiency.
+              </p>
             </div>
 
-            <!-- PROJECT DESCRIPTION -->
-            <p class="project-description">
-              A brief, compelling summary of what this application does, the problem it solves, and your specific role or technical focus.
-            </p>
-          </div>
-
-          <!-- TECH STACK TAGS -->
-          <div class="project-tags">
-            <span class="tag">Verilog</span>
-          </div>
-        </article>
-        <!-- END PROJECT 1 -->
-
-
-        <!-- PROJECT 2 -->
-        <article class="project-card">
-          <div>
-            <div class="project-header">
-              <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project Two</a>
-              <div class="project-links">
-                <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#" target="_blank" title="Live Demo">
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-              </div>
+            <!-- TECH STACK TAGS -->
+            <div class="project-tags">
+              <span class="tag">Verilog</span>
+              <span class="tag">C++</span>
             </div>
-            <p class="project-description">
-              An example of a full-stack or backend utility project. Replace this text with key metrics or technical highlights.
-            </p>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-          </div>
-        </article>
-        <!-- END PROJECT 2 -->
+          </article>
+          <!-- END PROJECT 1 -->
 
+          <!-- PROJECT 2 -->
+          <article class="project-card">
+            <div>
+              <div class="project-header">
+                <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project Two</a>
+                <div class="project-links">
+                  <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="#" target="_blank" title="Live Demo">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+              <p class="project-description">
+                Engineered a backend utility for [use case]. Highlight the specific role played and the technologies utilized to ensure reliability and performance.
+              </p>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Data Analysis</span>
+            </div>
+          </article>
+          <!-- END PROJECT 2 -->
 
-        <!-- ===================================================================
-             ADD SUBSEQUENT PROJECTS HERE:
-             Paste copied <article class="project-card"> ... </article> blocks below!
-             =================================================================== -->
-
-      </div>
+        </div>
+      </section>
     </main>
 
     <!-- ==========================================
