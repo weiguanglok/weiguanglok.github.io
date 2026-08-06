@@ -791,11 +791,6 @@
         width: min(calc(100% - 1.25rem), var(--max-width));
       }
 
-      .nav-links li:nth-child(2),
-      .nav-links li:nth-child(5) {
-        display: none;
-      }
-
       .hero-actions,
       .hero-actions .button,
       .contact-actions,
@@ -821,6 +816,248 @@
         transition-duration: 0.01ms !important;
       }
     }
+---
+	/* Mobile navigation button */
+	.menu-toggle {
+	  display: none;
+	  width: 44px;
+	  height: 44px;
+	  border: 1px solid var(--border);
+	  border-radius: 11px;
+	  color: var(--text);
+	  background: rgba(255, 255, 255, 0.04);
+	  font-size: 1.15rem;
+	  cursor: pointer;
+	}
+	
+	/* Prevent long text from causing horizontal scrolling */
+	.project-title,
+	.timeline-role,
+	.contact-card,
+	.panel {
+	  overflow-wrap: anywhere;
+	}
+	
+	@media (max-width: 700px) {
+	  html {
+	    scroll-padding-top: 5rem;
+	  }
+	
+	  body {
+	    overflow-x: hidden;
+	  }
+	
+	  .site-header {
+	    background: rgba(11, 16, 32, 0.96);
+	  }
+	
+	  .nav {
+	    position: relative;
+	    min-height: 64px;
+	    padding-block: 0.6rem;
+	    align-items: center;
+	  }
+	
+	  /* Keep the name visible beside the menu button */
+	  .brand-text {
+	    display: inline;
+	    font-size: 0.95rem;
+	  }
+	
+	  .menu-toggle {
+	    display: inline-grid;
+	    place-items: center;
+	    flex-shrink: 0;
+	  }
+	
+	  /* Dropdown navigation */
+	  .nav-links {
+	    position: absolute;
+	    top: calc(100% + 0.4rem);
+	    left: 0;
+	    right: 0;
+	    z-index: 100;
+	
+	    display: none;
+	    flex-direction: column;
+	    align-items: stretch;
+	    gap: 0.2rem;
+	
+	    max-height: calc(100vh - 90px);
+	    overflow-y: auto;
+	    padding: 0.65rem;
+	
+	    border: 1px solid var(--border);
+	    border-radius: 14px;
+	    background: rgba(16, 24, 45, 0.98);
+	    box-shadow: var(--shadow);
+	    backdrop-filter: blur(18px);
+	    -webkit-backdrop-filter: blur(18px);
+	  }
+	
+	  .nav-links.is-open {
+	    display: flex;
+	  }
+	
+	  .nav-links li,
+	  .nav-links li:nth-child(2),
+	  .nav-links li:nth-child(5) {
+	    display: block;
+	    width: 100%;
+	  }
+	
+	  .nav-links a {
+	    display: block;
+	    width: 100%;
+	    min-height: 44px;
+	    padding: 0.75rem 0.9rem;
+	    font-size: 0.95rem;
+	  }
+	
+	  /* Hero section */
+	  .hero {
+	    grid-template-columns: 1fr;
+	    gap: 2.25rem;
+	    padding-block: 3.5rem;
+	  }
+	
+	  .hero h1 {
+	    font-size: clamp(2.5rem, 13vw, 4rem);
+	    line-height: 1.02;
+	  }
+	
+	  .hero-subtitle {
+	    margin-top: 1.1rem;
+	    font-size: 1.08rem;
+	    line-height: 1.5;
+	  }
+	
+	  .hero-summary {
+	    font-size: 0.98rem;
+	  }
+	
+	  .profile-card {
+	    width: min(100%, 320px);
+	    justify-self: center;
+	  }
+	
+	  .profile-caption {
+	    flex-direction: column;
+	    align-items: flex-start;
+	    gap: 0.35rem;
+	  }
+	
+	  /* Reduce excessive vertical spacing */
+	  .section {
+	    padding-block: 3.75rem;
+	  }
+	
+	  .section-heading {
+	    gap: 1rem;
+	    margin-bottom: 1.5rem;
+	  }
+	
+	  .section-title {
+	    font-size: clamp(1.9rem, 9vw, 2.5rem);
+	  }
+	
+	  /* Cards */
+	  .panel,
+	  .timeline-item,
+	  .skill-group {
+	    padding: 1.2rem;
+	  }
+	
+	  .project-content {
+	    padding: 1.2rem;
+	  }
+	
+	  .project-meta {
+	    flex-direction: column;
+	    align-items: flex-start;
+	    gap: 0.2rem;
+	  }
+	
+	  .project-visual {
+	    min-height: 140px;
+	  }
+	
+	  .project-visual i {
+	    font-size: 3.25rem;
+	  }
+	
+	  /* Full-width mobile buttons */
+	  .hero-actions,
+	  .contact-actions {
+	    width: 100%;
+	  }
+	
+	  .hero-actions .button,
+	  .contact-actions .button {
+	    width: 100%;
+	  }
+	
+	  .contact-card {
+	    gap: 1.4rem;
+	  }
+	
+	  .contact-actions {
+	    justify-content: stretch;
+	  }
+	
+	  /* Education card */
+	  .education-card {
+	    grid-template-columns: 52px minmax(0, 1fr);
+	  }
+	
+	  .education-icon {
+	    width: 52px;
+	    height: 52px;
+	    font-size: 1.2rem;
+	  }
+	}
+	
+	@media (max-width: 420px) {
+	  .shell {
+	    width: calc(100% - 1rem);
+	  }
+	
+	  .brand-text {
+	    max-width: 155px;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	  }
+	
+	  .hero {
+	    padding-block: 3rem;
+	  }
+	
+	  .hero h1 {
+	    font-size: clamp(2.3rem, 13vw, 3.3rem);
+	  }
+	
+	  .eyebrow {
+	    font-size: 0.75rem;
+	    letter-spacing: 0.09em;
+	  }
+	
+	  .timeline-list {
+	    padding-left: 1rem;
+	  }
+	
+	  .project-content {
+	    padding: 1rem;
+	  }
+	
+	  .tags {
+	    gap: 0.35rem;
+	  }
+	
+	  .tag {
+	    font-size: 0.72rem;
+	  }
+	}
   </style>
 </head>
 
@@ -834,14 +1071,24 @@
         <span class="brand-text">Wei Guang Lok</span>
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+<button
+  class="menu-toggle"
+  type="button"
+  aria-expanded="false"
+  aria-controls="primary-menu"
+  aria-label="Open navigation"
+>
+  <i class="fa-solid fa-bars" aria-hidden="true"></i>
+</button>
+
+	<ul class="nav-links" id="primary-menu">
+	  <li><a href="#about">About</a></li>
+	  <li><a href="#experience">Experience</a></li>
+	  <li><a href="#projects">Projects</a></li>
+	  <li><a href="#skills">Skills</a></li>
+	  <li><a href="#education">Education</a></li>
+	  <li><a href="#contact">Contact</a></li>
+	</ul>
     </nav>
   </header>
 
