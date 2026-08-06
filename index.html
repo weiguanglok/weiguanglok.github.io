@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weiguang Lok | Electrical Engineer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* --- CSS VARIABLES & RESET --- */
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-main: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --border: #30363d;
+      --transition: all 0.2s ease-in-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0 1rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- LAYOUT WRAPPER --- */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 0;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    /* --- SOCIAL LINKS --- */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      border-color: var(--text-muted);
+      background-color: #1f242c;
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    /* --- PROJECTS SECTION --- */
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* --- PROJECT CARD STYLING --- */
+    .project-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-links a {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .project-links a:hover {
+      color: var(--accent);
+    }
+
+    .project-description {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      background-color: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-weight: 500;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .social-links { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- ==========================================
+         HERO & BIO SECTION
+         ========================================== -->
+    <header class="hero">
+      <h1>Wei Guang LOK</h1>
+      <p>Electrical Engineer.</p>
+      
+      <!-- SOCIAL PROFILES -->
+      <div class="social-links">
+        <a href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer" class="social-btn">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer" class="social-btn">
+          <i class="fa-brands fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         PROJECTS SECTION
+         ========================================== -->
+    <main>
+      <h2 class="section-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
+      
+      <div class="projects-grid">
+
+        <!-- ===================================================================
+             PROJECT CARD TEMPLATE 
+             ===================================================================
+             To add a new project:
+             1. Copy the entire <article> block below from <article> to </article>.
+             2. Paste it right ABOVE or BELOW existing cards inside .projects-grid.
+             3. Update the Title, Description, GitHub/Live Links, and Tech Tags.
+             =================================================================== -->
+        
+        <!-- PROJECT 1 -->
+        <article class="project-card">
+          <div>
+            <div class="project-header">
+              <!-- PROJECT TITLE -->
+              <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project One</a>
+              
+              <!-- PROJECT LINKS (GitHub Repo & Live Demo) -->
+              <div class="project-links">
+                <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="#" target="_blank" title="Live Demo">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- PROJECT DESCRIPTION -->
+            <p class="project-description">
+              A brief, compelling summary of what this application does, the problem it solves, and your specific role or technical focus.
+            </p>
+          </div>
+
+          <!-- TECH STACK TAGS -->
+          <div class="project-tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML5 / CSS3</span>
+            <span class="tag">API</span>
+          </div>
+        </article>
+        <!-- END PROJECT 1 -->
+
+
+        <!-- PROJECT 2 -->
+        <article class="project-card">
+          <div>
+            <div class="project-header">
+              <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project Two</a>
+              <div class="project-links">
+                <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="#" target="_blank" title="Live Demo">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+            <p class="project-description">
+              An example of a full-stack or backend utility project. Replace this text with key metrics or technical highlights.
+            </p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Git</span>
+          </div>
+        </article>
+        <!-- END PROJECT 2 -->
+
+
+        <!-- ===================================================================
+             ADD SUBSEQUENT PROJECTS HERE:
+             Paste copied <article class="project-card"> ... </article> blocks below!
+             =================================================================== -->
+
+      </div>
+    </main>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer>
+      <p>&copy; <span id="year"></span> Weiguang Lok. Built for GitHub Pages.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Automatically updates the footer copyright year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
