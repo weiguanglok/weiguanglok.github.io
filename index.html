@@ -3,365 +3,1164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weiguang Lok | Electrical Engineer</title>
+  <meta name="description" content="Portfolio of Wei Guang Lok, an NUS Electrical Engineering undergraduate interested in sustainable transportation, power systems, engineering design and software development.">
+  <meta name="theme-color" content="#0b1020">
+
+  <meta property="og:title" content="Wei Guang Lok | Electrical Engineering Portfolio">
+  <meta property="og:description" content="Selected work in rail engineering, sustainable transportation, data analysis and software development.">
+  <meta property="og:type" content="website">
+
+  <title>Wei Guang Lok | Electrical Engineering Portfolio</title>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    /* --- CSS VARIABLES & RESET --- */
     :root {
-      --bg-color: #0d1117;
-      --card-bg: #161b22;
-      --text-main: #e6edf3;
-      --text-muted: #8b949e;
-      
-      /* TRANSIT BLUE ACCENT COLOR */
-      --accent: #3b82f6; 
-      
-      --border: #30363d;
-      --transition: all 0.2s ease-in-out;
+      --bg: #0b1020;
+      --bg-elevated: #10182d;
+      --card: #121c32;
+      --card-hover: #17233d;
+      --text: #f3f6fb;
+      --muted: #aab7cc;
+      --accent: #60a5fa;
+      --accent-strong: #3b82f6;
+      --accent-soft: rgba(96, 165, 250, 0.12);
+      --border: rgba(148, 163, 184, 0.22);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      --radius: 18px;
+      --max-width: 1080px;
+      --transition: 180ms ease;
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 0 1rem;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(59, 130, 246, 0.16), transparent 34rem),
+        radial-gradient(circle at 88% 12%, rgba(14, 165, 233, 0.10), transparent 28rem),
+        var(--bg);
+      line-height: 1.65;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
     }
 
     a {
-      color: var(--accent);
+      color: inherit;
       text-decoration: none;
-      transition: var(--transition);
     }
 
-    a:hover {
-      text-decoration: underline;
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* --- LAYOUT WRAPPER --- */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 0;
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 8px;
     }
 
-    /* --- HERO SECTION --- */
-    .hero {
-      text-align: center;
-      padding: 3rem 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 999;
+      padding: 0.75rem 1rem;
+      color: #08111f;
+      background: var(--accent);
+      border-radius: 10px;
+      transform: translateY(-160%);
+      transition: transform var(--transition);
     }
 
-    .profile-pic {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      border: 3px solid var(--accent);
-      background-color: var(--card-bg); /* visible if image doesn't load */
+    .skip-link:focus {
+      transform: translateY(0);
     }
 
-    .hero h1 {
-      font-size: 2.75rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.5px;
+    .shell {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin-inline: auto;
     }
 
-    .hero .subtitle {
-      font-size: 1.25rem;
-      color: var(--text-main);
-      font-weight: 500;
-      margin-bottom: 1rem;
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid transparent;
+      background: rgba(11, 16, 32, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-    .hero .summary {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto 1.5rem auto;
+    .site-header::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: var(--border);
     }
 
-    /* --- SOCIAL LINKS --- */
-    .social-links {
+    .nav {
+      min-height: 72px;
       display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
     }
 
-    .social-btn {
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(96, 165, 250, 0.45);
+      border-radius: 11px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      padding: 0.55rem 0.75rem;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: color var(--transition), background-color var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      align-items: center;
+      gap: clamp(3rem, 8vw, 7rem);
+      padding-block: clamp(5rem, 11vw, 8rem);
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      font-weight: 500;
-      transition: var(--transition);
+      margin-bottom: 1.1rem;
+      color: var(--accent);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .social-btn:hover {
-      border-color: var(--accent);
-      background-color: #1f242c;
-      text-decoration: none;
+    .eyebrow::before {
+      content: "";
+      width: 1.6rem;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      max-width: 780px;
+      font-size: clamp(2.8rem, 8vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      margin-top: 1.4rem;
+      max-width: 720px;
+      color: #d8e1ef;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 650;
+    }
+
+    .hero-summary {
+      margin-top: 1rem;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 46px;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      font-weight: 750;
+      transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background-color var(--transition),
+        color var(--transition);
+    }
+
+    .button:hover {
       transform: translateY(-2px);
     }
 
-    /* --- SECTIONS --- */
-    .section-title {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
+    .button-primary {
+      color: #07111f;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button-primary:hover {
+      background: #8bc2ff;
+    }
+
+    .button-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(96, 165, 250, 0.62);
+      background: var(--accent-soft);
+    }
+
+    .profile-card {
+      position: relative;
+      max-width: 340px;
+      justify-self: end;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+      box-shadow: var(--shadow);
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(96, 165, 250, 0.44), transparent 42%, rgba(14, 165, 233, 0.18));
+      filter: blur(16px);
+      opacity: 0.52;
+    }
+
+    .profile-visual {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 20px;
+      background:
+        linear-gradient(145deg, rgba(96, 165, 250, 0.18), rgba(15, 23, 42, 0.95)),
+        var(--card);
+    }
+
+    .profile-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      color: var(--accent);
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+    }
+
+    .profile-caption {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0.35rem 0.25rem;
+      color: var(--muted);
+      font-size: 0.88rem;
     }
 
-    .skills-section {
-      margin-bottom: 3rem;
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
     }
 
-    .skills-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+    .status-dot {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.10);
+    }
+
+    .section {
+      padding-block: clamp(4.75rem, 10vw, 7.5rem);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.2fr);
+      align-items: end;
+      gap: 2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin-top: 0.45rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-intro {
+      max-width: 660px;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      gap: 1.25rem;
+    }
+
+    .panel,
+    .project-card,
+    .timeline-item,
+    .skill-group,
+    .contact-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(18, 28, 50, 0.72);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .panel {
+      padding: clamp(1.35rem, 3vw, 2rem);
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    .panel p + p {
+      margin-top: 1rem;
+    }
+
+    .quick-facts {
+      display: grid;
+      gap: 0.9rem;
+      list-style: none;
+    }
+
+    .quick-facts li {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: start;
+      gap: 0.85rem;
+    }
+
+    .fact-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(96, 165, 250, 0.32);
+      border-radius: 12px;
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .quick-facts strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .quick-facts span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 1.5rem;
+      padding: clamp(1.3rem, 3vw, 1.8rem);
+      transition: transform var(--transition), border-color var(--transition), background-color var(--transition);
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(96, 165, 250, 0.52);
+      background: rgba(23, 35, 61, 0.8);
+    }
+
+    .timeline-date {
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .timeline-role {
+      font-size: 1.16rem;
+      font-weight: 800;
+    }
+
+    .timeline-company {
+      margin-top: 0.1rem;
+      color: #d6deeb;
+      font-weight: 650;
+    }
+
+    .timeline-list {
+      display: grid;
+      gap: 0.45rem;
+      margin-top: 0.9rem;
+      padding-left: 1.15rem;
+      color: var(--muted);
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
     }
 
-    /* --- CARD & TAG STYLING --- */
     .project-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition), background-color var(--transition);
     }
 
     .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.55);
+      background: var(--card-hover);
     }
 
-    .project-header {
+    .project-visual {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(14, 165, 233, 0.04)),
+        #0f172a;
+    }
+
+    .project-visual i {
+      color: rgba(147, 197, 253, 0.95);
+      font-size: 4rem;
+      filter: drop-shadow(0 12px 30px rgba(59, 130, 246, 0.35));
+    }
+
+    .project-content {
+      flex: 1;
       display: flex;
+      flex-direction: column;
+      padding: 1.45rem;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.75rem;
+      gap: 1rem;
+      margin-bottom: 0.65rem;
+      color: var(--accent);
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .project-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .project-links {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .project-links a {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    .project-links a:hover {
-      color: var(--accent);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
     }
 
     .project-description {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.25rem;
-      flex-grow: 1;
+      margin-top: 0.75rem;
+      color: var(--muted);
     }
 
-    .project-tags {
+    .project-result {
+      margin-top: 0.85rem;
+      padding-left: 0.85rem;
+      border-left: 2px solid var(--accent);
+      color: #d5dfed;
+      font-size: 0.92rem;
+    }
+
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.45rem;
+      margin-top: 1rem;
     }
 
     .tag {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      
-      /* Updated for Transit Blue transparency */
-      background-color: rgba(59, 130, 246, 0.1); 
+      display: inline-flex;
+      align-items: center;
+      min-height: 27px;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid rgba(96, 165, 250, 0.28);
+      border-radius: 999px;
+      color: #b9d9ff;
+      background: var(--accent-soft);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: auto;
+      padding-top: 1.25rem;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
       color: var(--accent);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      
-      font-weight: 500;
-    }
-
-    /* Make skills tags slightly larger */
-    .skills-container .tag {
       font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
+      font-weight: 800;
     }
 
-    /* --- FOOTER --- */
+    .text-link:hover {
+      color: #9bc9ff;
+    }
+
+    .text-link i {
+      font-size: 0.82rem;
+      transition: transform var(--transition);
+    }
+
+    .text-link:hover i {
+      transform: translate(2px, -2px);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      padding: 1.35rem;
+    }
+
+    .skill-group h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.05rem;
+    }
+
+    .skill-group h3 i {
+      color: var(--accent);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.48rem;
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .skill-list li {
+      padding: 0.42rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 0.86rem;
+      font-weight: 650;
+    }
+
+    .education-card {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .education-icon {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      border-radius: 16px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 1.45rem;
+    }
+
+    .education-card h3 {
+      font-size: 1.25rem;
+    }
+
+    .education-card p {
+      margin-top: 0.35rem;
+    }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 2rem;
+      padding: clamp(1.6rem, 4vw, 2.5rem);
+      background:
+        linear-gradient(135deg, rgba(59, 130, 246, 0.17), rgba(18, 28, 50, 0.78) 58%),
+        var(--card);
+    }
+
+    .contact-card h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .contact-card p {
+      max-width: 670px;
+      margin-top: 0.8rem;
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.7rem;
+    }
+
     footer {
+      padding-block: 2rem 3rem;
+      color: var(--muted);
+      font-size: 0.87rem;
       text-align: center;
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.875rem;
     }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .social-links { flex-direction: column; }
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card {
+        width: min(100%, 360px);
+        justify-self: start;
+      }
+
+      .section-heading,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav {
+        min-height: auto;
+        padding-block: 0.85rem;
+        align-items: flex-start;
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 0;
+      }
+
+      .nav-links a {
+        padding: 0.45rem 0.5rem;
+        font-size: 0.82rem;
+      }
+
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+
+      .project-visual {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 470px) {
+      .shell {
+        width: min(calc(100% - 1.25rem), var(--max-width));
+      }
+
+      .nav-links li:nth-child(2),
+      .nav-links li:nth-child(5) {
+        display: none;
+      }
+
+      .hero-actions,
+      .hero-actions .button,
+      .contact-actions,
+      .contact-actions .button {
+        width: 100%;
+      }
+
+      .profile-card {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <div class="container">
-    <!-- ==========================================
-         HERO & BIO SECTION
-         ========================================== -->
-    <header class="hero">
-      <!-- Profile Picture -->
-      <img src="profile.jpg" alt="Wei Guang Lok" class="profile-pic" onerror="this.style.display='none'">
-      
-      <h1>Wei Guang LOK</h1>
-      <p class="subtitle">Electrical Engineering Student | Public Transport Enthusiast</p>
-      
-      <!-- Professional Summary -->
-      <p class="summary">
-        Bridging the gap between electrical engineering and sustainable, modern infrastructure. Passionate about solving complex problems in transit and clean technologies through innovative design and code.
-      </p>
-      
-      <!-- SOCIAL PROFILES -->
-      <div class="social-links">
-        <a href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer" class="social-btn">
-          <i class="fa-brands fa-github"></i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer" class="social-btn">
-          <i class="fa-brands fa-linkedin"></i> LinkedIn
-        </a>
-        <a href="mailto:your.email@example.com" class="social-btn">
-          <i class="fa-solid fa-envelope"></i> Email
-        </a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Wei Guang Lok, back to top">
+        <span class="brand-mark" aria-hidden="true">WL</span>
+        <span class="brand-text">Wei Guang Lok</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero shell" id="top" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">NUS Electrical Engineering</p>
+        <h1 id="hero-title">Hi, I’m <span>Wei Guang.</span></h1>
+        <p class="hero-subtitle">Electrical Engineering undergraduate focused on sustainable transportation, power systems and practical engineering solutions.</p>
+        <p class="hero-summary">
+          I enjoy combining engineering analysis, hands-on problem-solving and software development to improve real-world systems—from rail reliability and equipment design to EV simulation and student-facing digital tools.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#projects">
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            View my work
+          </a>
+          <a class="button button-secondary" href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            LinkedIn
+          </a>
+          <a class="button button-secondary" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            GitHub
+          </a>
+        </div>
       </div>
-    </header>
 
-    <!-- ==========================================
-         SKILLS SECTION
-         ========================================== -->
-    <main>
-      <section class="skills-section">
-        <h2 class="section-title"><i class="fa-solid fa-microchip"></i> Core Skills</h2>
-        <div class="skills-container">
-          <span class="tag">Electrical Engineering</span>
-          <span class="tag">Verilog</span>
-          <span class="tag">Python</span>
-          <span class="tag">Sustainable Tech</span>
-          <!-- Add more skills here -->
+      <aside class="profile-card" aria-label="Profile photograph">
+        <div class="profile-visual">
+          <img
+            src="profile.jpg"
+            alt="Portrait of Wei Guang Lok"
+            width="600"
+            height="750"
+            decoding="async"
+            onerror="this.hidden=true; this.nextElementSibling.style.display='grid';"
+          >
+          <div class="profile-fallback" aria-hidden="true">WL</div>
         </div>
-      </section>
+        <div class="profile-caption">
+          <span class="status"><span class="status-dot" aria-hidden="true"></span>Open to learning and collaboration</span>
+          <span>Singapore</span>
+        </div>
+      </aside>
+    </section>
 
-      <!-- ==========================================
-           PROJECTS SECTION
-           ========================================== -->
-      <section id="projects">
-        <h2 class="section-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
-        
-        <div class="projects-grid">
+    <section class="section shell" id="about" aria-labelledby="about-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">About</p>
+          <h2 class="section-title" id="about-title">Engineering with people and systems in mind.</h2>
+        </div>
+        <p class="section-intro">
+          My interests sit at the intersection of electrical engineering and sustainable transportation. I am especially motivated by projects where technical decisions have a visible impact on reliability, usability or operational efficiency.
+        </p>
+      </div>
 
-          <!-- PROJECT 1 -->
-          <article class="project-card">
-            <div>
-              <div class="project-header">
-                <!-- PROJECT TITLE -->
-                <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project One</a>
-                
-                <!-- PROJECT LINKS -->
-                <div class="project-links">
-                  <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
-                    <i class="fa-brands fa-github"></i>
-                  </a>
-                  <a href="#" target="_blank" title="Live Demo">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                  </a>
-                </div>
-              </div>
+      <div class="about-grid">
+        <article class="panel">
+          <p>
+            As an Electrical Engineering undergraduate at the National University of Singapore, I have worked on projects involving rail systems, reliability analysis, engineering dashboards and digital design.
+          </p>
+          <p>
+            I approach problems by first understanding the user, operating environment and constraints. From there, I break the problem into measurable parts, test assumptions and communicate the outcome clearly.
+          </p>
+        </article>
 
-              <!-- PROJECT DESCRIPTION -->
-              <p class="project-description">
-                Developed a solution to [specific problem] resulting in [specific metric or outcome]. Focused on integrating hardware constraints with software efficiency.
-              </p>
-            </div>
+        <aside class="panel" aria-label="Quick facts">
+          <ul class="quick-facts">
+            <li>
+              <span class="fact-icon"><i class="fa-solid fa-train-subway" aria-hidden="true"></i></span>
+              <div><strong>Primary interest</strong><span>Sustainable electric transportation</span></div>
+            </li>
+            <li>
+              <span class="fact-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></span>
+              <div><strong>Engineering focus</strong><span>Power, reliability and system design</span></div>
+            </li>
+            <li>
+              <span class="fact-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span>
+              <div><strong>Software interest</strong><span>Python, Excel and Power BI</span></div>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
 
-            <!-- TECH STACK TAGS -->
-            <div class="project-tags">
-              <span class="tag">Verilog</span>
-              <span class="tag">C++</span>
-            </div>
-          </article>
-          <!-- END PROJECT 1 -->
+    <section class="section shell" id="experience" aria-labelledby="experience-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Experience</p>
+          <h2 class="section-title" id="experience-title">Applied engineering experience.</h2>
+        </div>
+        <p class="section-intro">
+          Experiences that strengthened my understanding of how engineering decisions are shaped by reliability, maintenance, safety, cost and day-to-day operations.
+        </p>
+      </div>
 
-          <!-- PROJECT 2 -->
-          <article class="project-card">
-            <div>
-              <div class="project-header">
-                <a href="https://github.com/weiguanglok" target="_blank" class="project-title">Project Two</a>
-                <div class="project-links">
-                  <a href="https://github.com/weiguanglok" target="_blank" title="View Source Code">
-                    <i class="fa-brands fa-github"></i>
-                  </a>
-                  <a href="#" target="_blank" title="Live Demo">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                  </a>
-                </div>
-              </div>
-              <p class="project-description">
-                Engineered a backend utility for [use case]. Highlight the specific role played and the technologies utilized to ensure reliability and performance.
-              </p>
-            </div>
-            <div class="project-tags">
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">Jan–June 2026</div>
+          <div>
+            <h3 class="timeline-role">Rolling Stock Intern</h3>
+            <p class="timeline-company">SBS Transit · North East Line</p>
+            <ul class="timeline-list">
+              <li>Analysed equipment failure histories to identify reliability trends and possible wear-out behaviour.</li>
+              <li>Developed an Excel-based dashboard to support spare-parts monitoring and safety-stock planning.</li>
+              <li>Supported bench testing and compared the behaviour of replacement speedometer equipment.</li>
+              <li>Proposed practical equipment improvements while considering vibration, retention, waterproofing and maintenance access.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Selected work</p>
+          <h2 class="section-title" id="projects-title">Projects that connect engineering and software.</h2>
+        </div>
+        <p class="section-intro">
+          A selection of academic, personal and team projects. Public links are included where available; professional work is described at a non-confidential level.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-visual" aria-hidden="true">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-meta"><span>Web application</span><span>2026</span></div>
+            <h3 class="project-title">FindItNUS</h3>
+            <p class="project-description">
+              Built a Telegram bot and interactive web map that help NUS students submit structured lost-and-found reports and browse listings more efficiently.
+            </p>
+            <p class="project-result">Focused on report workflows, searchable listings, location data, image handling and a mobile-friendly map interface.</p>
+            <div class="tags">
+              <span class="tag">Next.js</span>
               <span class="tag">Python</span>
-              <span class="tag">Data Analysis</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">Leaflet</span>
+              <span class="tag">Telegram Bot</span>
             </div>
-          </article>
-          <!-- END PROJECT 2 -->
+            <div class="project-actions">
+              <a class="text-link" href="https://finditnus.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the FindItNUS live website">
+                Live website <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+              <a class="text-link" href="https://t.me/nusfindit_bot" target="_blank" rel="noopener noreferrer" aria-label="Open the FindItNUS Telegram bot">
+                Telegram bot <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </article>
 
+        <article class="project-card">
+          <div class="project-visual" aria-hidden="true">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-meta"><span>Engineering analysis</span><span>2026</span></div>
+            <h3 class="project-title">Rail Reliability &amp; Spares Dashboard</h3>
+            <p class="project-description">
+              Analysed rolling-stock equipment records and created a dashboard to make failure history, component status and spare availability easier to review.
+            </p>
+            <p class="project-result">Translated operational data into clearer maintenance information while accounting for practical inventory constraints.</p>
+            <div class="tags">
+              <span class="tag">Reliability Analysis</span>
+              <span class="tag">Excel</span>
+              <span class="tag">Data Visualisation</span>
+              <span class="tag">Rail Engineering</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-visual" aria-hidden="true">
+            <i class="fa-solid fa-car-battery"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-meta"><span>Simulation</span><span>2026</span></div>
+            <h3 class="project-title">EV Battery Dynamic Model</h3>
+            <p class="project-description">
+              Studied the modified Shepherd battery model and implemented its voltage, state-of-charge and polarisation behaviour for electric-vehicle simulation.
+            </p>
+            <p class="project-result">Connected discharge-curve parameters to a reusable Simulink subsystem and tested its response under changing current demand.</p>
+            <div class="tags">
+              <span class="tag">MATLAB</span>
+              <span class="tag">Simulink</span>
+              <span class="tag">Battery Modelling</span>
+              <span class="tag">EV Systems</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-visual" aria-hidden="true">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-meta"><span>Personal tool</span><span>2026</span></div>
+            <h3 class="project-title">Bank Statement Expense Analyser</h3>
+            <p class="project-description">
+              Developed a Python workflow to extract transactions from multiple bank-statement PDFs, classify expenses and consolidate the results into Excel.
+            </p>
+            <p class="project-result">Designed the parser around inconsistent statement formats, configurable categories and reviewable final classifications.</p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">PDF Parsing</span>
+              <span class="tag">Excel Automation</span>
+            </div>
+            <div class="project-actions">
+              <a class="text-link" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer" aria-label="View Wei Guang Lok's GitHub profile">
+                GitHub profile <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="skills" aria-labelledby="skills-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Capabilities</p>
+          <h2 class="section-title" id="skills-title">A growing engineering toolkit.</h2>
         </div>
-      </section>
-    </main>
+        <p class="section-intro">
+          Skills developed through coursework, internships and personal projects. I value understanding the underlying system rather than treating tools as isolated checkboxes.
+        </p>
+      </div>
 
-    <!-- ==========================================
-         FOOTER
-         ========================================== -->
-    <footer>
-      <p>&copy; <span id="year"></span> Wei Guang Lok. Built for GitHub Pages.</p>
-    </footer>
-  </div>
+      <div class="skills-grid">
+        <article class="skill-group">
+          <h3><i class="fa-solid fa-bolt" aria-hidden="true"></i> Engineering</h3>
+          <ul class="skill-list">
+            <li>Power electronics</li>
+            <li>Battery modelling</li>
+            <li>Reliability analysis</li>
+            <li>Digital electronics</li>
+            <li>Rail systems</li>
+            <li>Technical testing</li>
+          </ul>
+        </article>
+
+        <article class="skill-group">
+          <h3><i class="fa-solid fa-terminal" aria-hidden="true"></i> Programming</h3>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>Verilog</li>
+	    <li>C/C++</li>	
+          </ul>
+        </article>
+
+        <article class="skill-group">
+          <h3><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Tools</h3>
+          <ul class="skill-list">
+            <li>MATLAB/Simulink</li>
+            <li>Excel</li>
+            <li>Power BI</li>
+            <li>SolidWorks</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="education" aria-labelledby="education-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Education</p>
+          <h2 class="section-title" id="education-title">Academic foundation.</h2>
+        </div>
+        <p class="section-intro">
+          Building depth in electrical engineering while exploring sustainable electric transportation, control, power electronics and computing.
+        </p>
+      </div>
+
+      <article class="panel education-card">
+        <div class="education-icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <h3>National University of Singapore</h3>
+          <p><strong>Bachelor of Engineering in Electrical Engineering</strong></p>
+          <p>Relevant interests: sustainable electric transportation, power systems, power electronics, embedded and digital systems.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section shell" id="contact" aria-labelledby="contact-title">
+      <div class="contact-card">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2 id="contact-title">Let’s connect.</h2>
+          <p>
+            I am happy to connect with people working in transportation, sustainable technology, electrical engineering and software-enabled engineering projects.
+          </p>
+        </div>
+
+        <div class="contact-actions">
+          <a class="button button-primary" href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            Message on LinkedIn
+          </a>
+          <a class="button button-secondary" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            View GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <p>&copy; <span id="year"></span> Wei Guang Lok. Built for GitHub Pages.</p>
+  </footer>
 
   <script>
-    // Automatically updates the footer copyright year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
