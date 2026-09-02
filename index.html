@@ -1127,6 +1127,46 @@
 	    font-size: 0.72rem;
 	  }
 	}
+
+    /* ─── Entrance Animations ─── */
+    @keyframes anim-fade-up {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes anim-fade-left {
+      from { opacity: 0; transform: translateX(-32px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes anim-scale-in {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    [data-animate] {
+      opacity: 0;
+    }
+
+    [data-animate].in-view {
+      animation-fill-mode: both;
+      animation-timing-function: ease-out;
+    }
+
+    [data-animate="fade-up"].in-view {
+      animation-name: anim-fade-up;
+      animation-duration: 0.5s;
+    }
+
+    [data-animate="fade-left"].in-view {
+      animation-name: anim-fade-left;
+      animation-duration: 0.4s;
+    }
+
+    [data-animate="scale-in"].in-view {
+      animation-name: anim-scale-in;
+      animation-duration: 0.5s;
+    }
   </style>
 </head>
 
@@ -1168,14 +1208,14 @@
   <main id="main-content">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
       <div>
-        <p class="eyebrow">NUS Electrical Engineering</p>
-        <h1 id="hero-title">Hi, I’m <span>Wei Guang.</span></h1>
-        <p class="hero-subtitle">Electrical Engineering undergraduate at NUS, planned specialisation in Sustainable Electric Transportation.</p>
-        <p class="hero-summary">
-          Internship experience in rail power and rolling stock engineering. My work focuses on applied engineering using tools like Excel, Power BI, and Python for reliability analysis, asset management, and maintenance support in public transport systems.
+        <p class="eyebrow" data-animate="fade-up">NUS Electrical Engineering</p>
+        <h1 id="hero-title" data-animate="fade-up" style="animation-delay: 100ms">Hi, I'm <span>Wei Guang.</span></h1>
+        <p class="hero-subtitle" data-animate="fade-up" style="animation-delay: 200ms">Electrical Engineering undergraduate at NUS, specialising in Sustainable Electric Transportation.</p>
+        <p class="hero-summary" data-animate="fade-up" style="animation-delay: 300ms">
+          Focused on power systems, rolling stock engineering, and reliability in transit operations.
         </p>
 
-        <div class="hero-actions">
+        <div class="hero-actions" data-animate="fade-up" style="animation-delay: 400ms">
           <a class="button button-primary" href="#projects">
             <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
             View my work
@@ -1191,7 +1231,7 @@
         </div>
       </div>
 
-      <aside class="profile-card" aria-label="Profile photograph">
+      <aside class="profile-card" aria-label="Profile photograph" data-animate="scale-in" style="animation-delay: 500ms">
         <div class="profile-visual">
           <img
             src="assets/Profile Image.jpg"
@@ -1214,36 +1254,36 @@
       <div class="section-heading">
         <div>
           <p class="section-kicker">About</p>
-          <h2 class="section-title" id="about-title">Supporting reliability in real life engineering systems.</h2>
+          <h2 class="section-title" id="about-title">Supporting reliability in engineering systems.</h2>
         </div>
         <p class="section-intro">
-          I aim to understand how electrical engineering can be applied in the real world, particularly in maintaining and improving the serviceability of public transport networks.
+          Maintaining critical electrical and mechanical systems requires both physical domain knowledge and structured data tracking.
         </p>
       </div>
 
       <div class="about-grid">
         <article class="panel">
           <p>
-            I am currently pursuing my Electrical Engineering degree at the National University of Singapore (NUS), with a planned specialisation in Sustainable Electric Transportation (SET).
+            Currently in my undergraduate studies at the National University of Singapore (NUS), focusing on power systems, electrical machines, and control systems.
           </p>
           <p>
-            As I continue my studies, I am focused on building a stronger technical foundation in power engineering and railway systems, whilst actively seeking practical experience in the public transport industry to complement my academic work.
+            Through internships at SBS Transit, I have worked with both rolling stock maintenance teams and rail power assets, handling component obsolescence, reliability analysis, and asset hierarchy mapping.
           </p>
         </article>
 
         <aside class="panel" aria-label="Quick facts">
           <ul class="quick-facts">
             <li>
-              <span class="fact-icon"><i class="fa-solid fa-train-subway" aria-hidden="true"></i></span>
-              <div><strong>Primary interest</strong><span>Sustainable electric transportation</span></div>
-            </li>
-            <li>
               <span class="fact-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></span>
-              <div><strong>Engineering focus</strong><span>Power, reliability and system design</span></div>
+              <div><strong>Target industry</strong><span>Power, Rolling Stock</span></div>
             </li>
             <li>
-              <span class="fact-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span>
-              <div><strong>Software interest</strong><span>Python, Excel and Power BI</span></div>
+              <span class="fact-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+              <div><strong>Engineering focus</strong><span>Reliability and asset management</span></div>
+            </li>
+            <li>
+              <span class="fact-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></span>
+              <div><strong>Education</strong><span>NUS Electrical Engineering (Class of 2027)</span></div>
             </li>
           </ul>
         </aside>
@@ -1483,62 +1523,97 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const year = document.getElementById("year");
-      const menuButton = document.querySelector(".menu-toggle");
-      const navigationMenu = document.getElementById("primary-menu");
-      const menuIcon = menuButton ? menuButton.querySelector("i") : null;
+      /* ── Year ── */
+      var year = document.getElementById("year");
+      if (year) year.textContent = new Date().getFullYear();
 
-      if (year) {
-        year.textContent = new Date().getFullYear();
-      }
+      /* ── Mobile Menu ── */
+      var menuButton = document.querySelector(".menu-toggle");
+      var navigationMenu = document.getElementById("primary-menu");
+      var menuIcon = menuButton ? menuButton.querySelector("i") : null;
 
-      if (!menuButton || !navigationMenu) {
-        return;
-      }
-
-      function setMenuState(isOpen) {
-        navigationMenu.classList.toggle("is-open", isOpen);
-        menuButton.setAttribute("aria-expanded", String(isOpen));
-        menuButton.setAttribute(
-          "aria-label",
-          isOpen ? "Close navigation" : "Open navigation"
-        );
-
-        if (menuIcon) {
-          menuIcon.className = isOpen
-            ? "fa-solid fa-xmark"
-            : "fa-solid fa-bars";
+      if (menuButton && navigationMenu) {
+        function setMenuState(isOpen) {
+          navigationMenu.classList.toggle("is-open", isOpen);
+          menuButton.setAttribute("aria-expanded", String(isOpen));
+          menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+          if (menuIcon) menuIcon.className = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
         }
+
+        menuButton.addEventListener("click", function () {
+          setMenuState(!navigationMenu.classList.contains("is-open"));
+        });
+        navigationMenu.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () { setMenuState(false); });
+        });
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".nav")) setMenuState(false);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { setMenuState(false); menuButton.focus(); }
+        });
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 700) setMenuState(false);
+        });
       }
 
-      menuButton.addEventListener("click", function () {
-        const isOpen = navigationMenu.classList.contains("is-open");
-        setMenuState(!isOpen);
-      });
+      /* ── Entrance Animations ── */
 
-      navigationMenu.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          setMenuState(false);
+      // Cleanup: remove data-animate after animation so hover transforms work
+      function onAnimEnd(e) {
+        if (e.target !== e.currentTarget) return;
+        e.currentTarget.removeAttribute("data-animate");
+        e.currentTarget.style.animationDelay = "";
+        e.currentTarget.removeEventListener("animationend", onAnimEnd);
+      }
+
+      // 1) Hero — trigger on page load (data-animate already in HTML)
+      requestAnimationFrame(function () {
+        document.querySelectorAll(".hero [data-animate]").forEach(function (el) {
+          el.addEventListener("animationend", onAnimEnd);
+          el.classList.add("in-view");
         });
       });
 
-      document.addEventListener("click", function (event) {
-        if (!event.target.closest(".nav")) {
-          setMenuState(false);
-        }
+      // 2) Scroll-triggered — apply data-animate via JS (below fold, no flash)
+      [
+        { s: ".section-heading .section-kicker", t: "fade-left", d: 0 },
+        { s: ".section-heading .section-title",  t: "fade-up",   d: 150 },
+        { s: ".section-heading .section-intro",  t: "fade-up",   d: 300 }
+      ].forEach(function (c) {
+        document.querySelectorAll(c.s).forEach(function (el) {
+          el.setAttribute("data-animate", c.t);
+          if (c.d) el.style.animationDelay = c.d + "ms";
+        });
       });
 
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          setMenuState(false);
-          menuButton.focus();
-        }
+      [
+        { s: ".about-grid > *",                    t: "fade-up",  g: 150 },
+        { s: "#experience .timeline-item",         t: "fade-up",  g: 200 },
+        { s: ".projects-grid > .project-card",     t: "scale-in", g: 150 },
+        { s: ".skills-grid > .skill-group",        t: "fade-up",  g: 120 },
+        { s: "#education .timeline > *",           t: "fade-up",  g: 200 },
+        { s: "#contact .contact-card",             t: "scale-in", g: 0 }
+      ].forEach(function (c) {
+        document.querySelectorAll(c.s).forEach(function (el, i) {
+          el.setAttribute("data-animate", c.t);
+          if (i * c.g) el.style.animationDelay = (i * c.g) + "ms";
+        });
       });
 
-      window.addEventListener("resize", function () {
-        if (window.innerWidth > 700) {
-          setMenuState(false);
-        }
+      // 3) IntersectionObserver for scroll-triggered elements
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll("[data-animate]:not(.hero [data-animate])").forEach(function (el) {
+        el.addEventListener("animationend", onAnimEnd);
+        observer.observe(el);
       });
     });
   </script>
