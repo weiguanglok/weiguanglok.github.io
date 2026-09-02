@@ -347,7 +347,20 @@
       height: 0.6rem;
       border-radius: 50%;
       background: #4ade80;
-      box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.10);
+      box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+      animation: pulse-dot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    @keyframes pulse-dot {
+      0% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 9px rgba(74, 222, 128, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+      }
     }
 
     .section {
@@ -454,12 +467,39 @@
       gap: 1.15rem;
     }
 
+    #experience .timeline {
+      position: relative;
+      gap: 1.5rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(96, 165, 250, 0.28);
+    }
+
     .timeline-item {
+      position: relative;
       display: grid;
       grid-template-columns: 170px minmax(0, 1fr);
       gap: 1.5rem;
       padding: clamp(1.3rem, 3vw, 1.8rem);
       transition: transform var(--transition), border-color var(--transition), background-color var(--transition);
+    }
+
+    #experience .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(-1.5rem - 6px);
+      top: 1.9rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.85);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    #experience .timeline-item:hover::before {
+      transform: scale(1.4);
+      box-shadow: 0 0 16px var(--accent);
     }
 
     .timeline-item:hover {
@@ -515,13 +555,26 @@
     }
 
     .project-visual {
-      min-height: 180px;
+      height: 200px;
       display: grid;
       place-items: center;
+      overflow: hidden;
       border-bottom: 1px solid var(--border);
       background:
         linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(14, 165, 233, 0.04)),
         #0f172a;
+    }
+
+    .project-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform var(--transition);
+    }
+
+    .project-card:hover .project-visual img {
+      transform: scale(1.04);
     }
 
     .project-visual i {
@@ -670,11 +723,18 @@
       height: 64px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
-      color: var(--accent);
-      background: var(--accent-soft);
-      font-size: 1.45rem;
+      background: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+    }
+
+    .education-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .education-card h3 {
@@ -966,6 +1026,15 @@
 	  .skill-group {
 	    padding: 1.2rem;
 	  }
+
+	  #experience .timeline {
+	    padding-left: 1.1rem;
+	  }
+
+	  #experience .timeline-item::before {
+	    left: calc(-1.1rem - 6px);
+	    top: 1.4rem;
+	  }
 	
 	  .project-content {
 	    padding: 1.2rem;
@@ -1012,7 +1081,8 @@
 	  .education-icon {
 	    width: 52px;
 	    height: 52px;
-	    font-size: 1.2rem;
+	    padding: 7px;
+	    border-radius: 13px;
 	  }
 	}
 	
@@ -1067,7 +1137,7 @@
     <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Wei Guang Lok, back to top">
         <img 
-          src="Profile Image.jpg" 
+          src="assets/Profile Image.jpg" 
           alt="Logo" 
           style="width: 36px; height: 36px; border-radius: 11px; object-fit: cover; border: 1px solid rgba(96, 165, 250, 0.45);"
         >
@@ -1124,7 +1194,7 @@
       <aside class="profile-card" aria-label="Profile photograph">
         <div class="profile-visual">
           <img
-            src="Profile Image.jpg"
+            src="assets/Profile Image.jpg"
             alt="Portrait of Wei Guang Lok"
             width="600"
             height="750"
@@ -1147,7 +1217,7 @@
           <h2 class="section-title" id="about-title">Supporting reliability in real life engineering systems.</h2>
         </div>
         <p class="section-intro">
-          I aim to understand how electrical engineering can be applied in the real world, particularly in maintaining and improving the serviceability of public transportation networks.
+          I aim to understand how electrical engineering can be applied in the real world, particularly in maintaining and improving the serviceability of public transport networks.
         </p>
       </div>
 
@@ -1157,7 +1227,7 @@
             I am currently pursuing my Electrical Engineering degree at the National University of Singapore (NUS), with a planned specialisation in Sustainable Electric Transportation (SET).
           </p>
           <p>
-            As I continue my studies, I am focused on building a stronger technical foundation in power engineering and railway systems, while actively seeking practical experience in the public transport industry to complement my academic work.
+            As I continue my studies, I am focused on building a stronger technical foundation in power engineering and railway systems, whilst actively seeking practical experience in the public transport industry to complement my academic work.
           </p>
         </article>
 
@@ -1201,7 +1271,7 @@
               <li>Contributed to design modifications and testing for rolling stock components, addressing hardware obsolescence and mitigating future safety risks.</li>
               <li>Conducted reliability analysis on critical components using Excel to identify potential patterns and assist in data-driven maintenance strategies.</li>
               <li>Developed a Power BI dashboard for spares management, consolidating relevant data into a user-friendly, comprehensive interface.</li>
-              <li>Optimised the image labelling workflow by creating a Python script that automatically sorted datasets by viewing angle, accelerating the review process while seamlessly ensuring system compatibility.</li>
+              <li>Optimised the image labelling workflow by creating a Python script that automatically sorted datasets by viewing angle, accelerating the review process whilst ensuring system compatibility.</li>
             </ul>
           </div>
         </article>
@@ -1212,9 +1282,9 @@
             <h3 class="timeline-role">NEL Rail Power Intern</h3>
             <p class="timeline-company">SBS Transit Ltd</p>
             <ul class="timeline-list">
-              <li>Developed a structured asset hierarchy system for over 5000 power and electrical services equipment across the North East Line (NEL) using Microsoft Excel & Power BI, improving accessibility to the latest engineering drawings.</li>
+              <li>Developed a structured asset hierarchy system for over 5,000 power and electrical services equipment across the North East Line (NEL) using Microsoft Excel & Power BI, improving accessibility to the latest engineering drawings.</li>
               <li>Mapped existing NEL power and electrical services equipment to new asset standards, supporting cross-system standardisation.</li>
-              <li>Assisted in standardising version control for engineering drawings, ensuring consistency and reducing revision errors.</li>
+              <li>Assisted in standardising version control for engineering drawings, ensuring consistency and minimising revision errors.</li>
               <li>Assisted in procurement planning for critical spare parts, supporting uninterrupted rail operations.</li>
             </ul>
           </div>
@@ -1235,39 +1305,52 @@
 
       <div class="projects-grid">
         <article class="project-card">
-          <div class="project-visual" aria-hidden="true">
-            <i class="fa-solid fa-vector-square"></i>
+          <div class="project-visual">
+            <img 
+              src="assets/coursereg-tracker.png" 
+              alt="NUS CourseReg Tracker Interface"
+              loading="lazy"
+            >
           </div>
           <div class="project-content">
-            <div class="project-meta"><span>Python Script</span><span>2026</span></div>
-            <h3 class="project-title">Manual Image Annotator</h3>
+            <div class="project-meta"><span>Web Application</span><span>2026</span></div>
+            <h3 class="project-title">NUS CourseReg Tracker</h3>
             <p class="project-description">
-              Built a lightweight local Python script that streamlines the process of manually drawing bounding boxes on image datasets for computer vision training and data preparation.
+              Developed an interactive web application for NUS students to search module demand and vacancies, analyse oversubscription ratios, and explore historical trends across registration rounds.
             </p>
-            <p class="project-result">Focused on rapid manual annotation, sequential image processing, custom regex sorting, and automated saving using an interactive OpenCV graphical interface.</p>
+            <p class="project-result">Automated PDF vacancy report parsing into structured datasets, enriched module data via NUSMods API, and built real-time comparative visualisations powered by Chart.js.</p>
             <div class="tags">
+              <span class="tag">AI-Assisted</span>
+              <span class="tag">JavaScript</span>
               <span class="tag">Python</span>
-              <span class="tag">OpenCV</span>
-              <span class="tag">Regex</span>
-              <span class="tag">Data Preparation</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">NUSMods API</span>
+              <span class="tag">Data Analytics</span>
             </div>
             <div class="project-actions">
-              <a class="text-link" href="https://github.com/weiguanglok/draw_boxes_manual" target="_blank" rel="noopener noreferrer" aria-label="Open the Github repository">
-                GitHub Repository <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <a class="text-link" href="https://github.com/weiguanglok/Coursereg_Tracker" target="_blank" rel="noopener noreferrer" aria-label="View the GitHub Repository">
+                GitHub Repository <i class="fa-brands fa-github" aria-hidden="true"></i>
+              </a>
+              <a class="text-link" href="https://coursereg-tracker.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the Live Demo">
+                Live Demo <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
               </a>
             </div>
           </div>
         </article>
 
         <article class="project-card">
-          <div class="project-visual" aria-hidden="true">
-            <i class="fa-solid fa-gamepad"></i>
+          <div class="project-visual">
+            <img 
+              src="assets/bobs-adventure.png" 
+              alt="Bob's Adventure PvP Game Title Screen"
+              loading="lazy"
+            >
           </div>
           <div class="project-content">
             <div class="project-meta"><span>Hardware / FPGA</span><span>2024</span></div>
             <h3 class="project-title">Bob's Adventure (PvP Game)</h3>
             <p class="project-description">
-              Developed a turn-based PvP game to showcase digital design concepts on hardware components using Xilinx Vivado and Verilog.
+              Developed a turn-based PvP game to demonstrate digital design concepts on hardware components using Xilinx Vivado and Verilog.
             </p>
             <p class="project-result">Configured dual Pmod OLEDrgb displays for dynamic visual animations and implemented an LFSR module to introduce randomness for AI ability selection and parry mechanics.</p>
             <div class="tags">
@@ -1279,76 +1362,6 @@
             <div class="project-actions">
               <a class="text-link" href="https://github.com/weiguanglok/EE2026_2425_Wed_AM_Team_13_Project" target="_blank" rel="noopener noreferrer" aria-label="View the GitHub Repository">
                 GitHub Repository <i class="fa-brands fa-github" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-visual" aria-hidden="true">
-            <i class="fa-solid fa-car-battery"></i>
-          </div>
-          <div class="project-content">
-            <div class="project-meta"><span>Simulation</span><span>2026</span></div>
-            <h3 class="project-title">EV Battery Dynamic Model</h3>
-            <p class="project-description">
-              Studied the modified Shepherd battery model and implemented its voltage, state-of-charge and polarisation behaviour for electric-vehicle simulation.
-            </p>
-            <p class="project-result">Connected discharge-curve parameters to a reusable Simulink subsystem and tested its response under changing current demand.</p>
-            <div class="tags">
-              <span class="tag">MATLAB</span>
-              <span class="tag">Simulink</span>
-              <span class="tag">Battery Modelling</span>
-              <span class="tag">EV Systems</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-visual" aria-hidden="true">
-            <i class="fa-solid fa-file-invoice-dollar"></i>
-          </div>
-          <div class="project-content">
-            <div class="project-meta"><span>Personal tool</span><span>2026</span></div>
-            <h3 class="project-title">Bank Statement Expense Analyser</h3>
-            <p class="project-description">
-              Developed a Python workflow to extract transactions from multiple bank-statement PDFs, classify expenses and consolidate the results into Excel.
-            </p>
-            <p class="project-result">Designed the parser around inconsistent statement formats, configurable categories and reviewable final classifications.</p>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">PDF Parsing</span>
-              <span class="tag">Excel Automation</span>
-            </div>
-            <div class="project-actions">
-              <a class="text-link" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer" aria-label="View Wei Guang Lok's GitHub profile">
-                GitHub profile <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-visual" aria-hidden="true">
-            <i class="fa-solid fa-file-invoice-dollar"></i>
-          </div>
-          <div class="project-content">
-            <div class="project-meta"><span>Personal tool</span><span>2026</span></div>
-            <h3 class="project-title">Bank Statement Expense Analyser</h3>
-            <p class="project-description">
-              Developed a Python workflow to extract transactions from multiple bank-statement PDFs, classify expenses and consolidate the results into Excel.
-            </p>
-            <p class="project-result">Designed the parser around inconsistent statement formats, configurable categories and reviewable final classifications.</p>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">PDF Parsing</span>
-              <span class="tag">Excel Automation</span>
-            </div>
-            <div class="project-actions">
-              <a class="text-link" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer" aria-label="View Wei Guang Lok's GitHub profile">
-                GitHub profile <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
               </a>
             </div>
           </div>
@@ -1413,23 +1426,27 @@
 
       <div class="timeline">
         <article class="panel education-card">
-          <div class="education-icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="education-icon">
+            <img src="assets/nus-logo.svg" alt="NUS Logo" loading="lazy">
+          </div>
           <div>
             <h3>National University of Singapore (NUS)</h3>
             <p><strong>Bachelor of Engineering in Electrical Engineering</strong> | 2023 – 2027</p>
             <p style="color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem;">
-              <strong>Relevant Coursework:</strong> Power Electronics for Sustainable Energy Technologies, Electronic Circuits, Electrical Energy Systems
+              <strong>Relevant Modules:</strong> Power Electronics for Sustainable Energy Technologies, Electronic Circuits, Electrical Energy Systems
             </p>
           </div>
         </article>
 
         <article class="panel education-card">
-          <div class="education-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></div>
+          <div class="education-icon">
+            <img src="assets/polyu-logo.svg" alt="PolyU Logo" loading="lazy">
+          </div>
           <div>
             <h3>The Hong Kong Polytechnic University (PolyU)</h3>
-            <p><strong>Student Exchange Programme, Electrical and Electronics Engineering</strong> | Aug 2025 – Dec 2025</p>
+            <p><strong>Student Exchange Programme, Electrical and Electronic Engineering</strong> | Aug 2025 – Dec 2025</p>
             <p style="color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem;">
-              <strong>Relevant Coursework:</strong> Power Systems, Electrical Machines, Systems and Control
+              <strong>Relevant Modules:</strong> Power Systems, Electrical Machines, Systems and Control
             </p>
           </div>
         </article>
