@@ -58,10 +58,15 @@
         radial-gradient(circle at 85% 45%, rgba(14, 165, 233, 0.08), transparent 34rem),
         radial-gradient(circle at 12% 72%, rgba(99, 102, 241, 0.07), transparent 32rem),
         radial-gradient(circle at 75% 92%, rgba(59, 130, 246, 0.06), transparent 26rem);
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.14), transparent 32rem),
+        radial-gradient(circle at 85% 25%, rgba(14, 165, 233, 0.09), transparent 28rem),
+        radial-gradient(circle at 50% 75%, rgba(99, 102, 241, 0.06), transparent 32rem);
+      background-attachment: fixed;
       line-height: 1.65;
     }
 
     /* ── Engineering CAD / Schematic Coordinate Grid ── */
+    /* ── Engineering CAD / Schematic Coordinate Grid (Hardware Accelerated) ── */
     body::before {
       content: "";
       position: fixed;
@@ -69,8 +74,12 @@
       background-image:
         linear-gradient(to right, rgba(96, 165, 250, 0.038) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(96, 165, 250, 0.038) 1px, transparent 1px);
+        linear-gradient(to right, rgba(96, 165, 250, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(96, 165, 250, 0.035) 1px, transparent 1px);
       background-size: 38px 38px;
       pointer-events: none;
+      transform: translateZ(0);
+      will-change: transform;
       z-index: 0;
     }
 
@@ -727,10 +736,13 @@
       display: block;
       filter: brightness(0.92) contrast(1.02);
       transition: filter var(--transition);
+      opacity: 0.92;
+      transition: opacity var(--transition);
     }
 
     .project-card:hover .mockup-frame img {
       filter: brightness(1) contrast(1.02);
+      opacity: 1;
     }
 
     .project-visual i {
@@ -1737,8 +1749,10 @@
 
         var isTicking = false;
         function updateProgress() {
+          // ── Phase 1: All DOM Reads first (No style recalculations) ──
           var scrollTop = window.scrollY || document.documentElement.scrollTop;
           var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          var isAtBottom = (window.innerHeight + scrollTop) >= (document.documentElement.scrollHeight - 50);
 
           // 1) Transmission line progress
           if (progressBar) {
@@ -1756,13 +1770,27 @@
           } else {
             spySections.forEach(function (section) {
               var rect = section.getBoundingClientRect();
+            for (var s = 0; s < spySections.length; s++) {
+              var rect = spySections[s].getBoundingClientRect();
               if (rect.top <= 220 && rect.bottom > 100) {
                 currentId = section.getAttribute("id");
+                currentId = spySections[s].getAttribute("id");
+                break; // Stop after first match
               }
             });
+            }
           }
 
           navLinks.forEach(function (link) {
+          // ── Phase 2: All DOM Writes after reads (Zero reflows) ──
+          if (progressBar) {
+            var progress = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
+            progressBar.style.transform = "scaleX(" + progress + ")";
+            progressBar.style.opacity = scrollTop > 15 ? "1" : "0";
+          }
+
+          for (var l = 0; l < navLinks.length; l++) {
+            var link = navLinks[l];
             var href = link.getAttribute("href");
             if (currentId && href === "#" + currentId) {
               link.classList.add("active");
@@ -1770,6 +1798,7 @@
               link.classList.remove("active");
             }
           });
+          }
 
           isTicking = false;
         }
@@ -1926,6 +1955,7 @@
           width = rect.width;
           height = rect.height;
           dpr = Math.min(window.devicePixelRatio || 1, 2);
+          dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
           canvas.width = Math.floor(width * dpr);
           canvas.height = Math.floor(height * dpr);
@@ -1994,6 +2024,7 @@
             // 1) Trace wave curve
             ctx.beginPath();
             var step = 6;
+            var step = 10;
             for (var x = 0; x <= width + step; x += step) {
               var y = getWaveY(x, time * phase.speedMult, phase.offset);
               if (x === 0) {
@@ -2020,6 +2051,7 @@
             ctx.fill();
 
             // 4) Traveling charge packets (electrons along power transmission line)
+            // 4) Traveling charge packets (Hardware-accelerated rendering, no shadowBlur)
             for (var i = 0; i < phase.particles.length; i++) {
               var pt = phase.particles[i];
               if (!prefersReducedMotion) {
@@ -2028,6 +2060,13 @@
               var px = pt.progress * width;
               var py = getWaveY(px, time * phase.speedMult, phase.offset);
 
+              // Outer halo glow
+              ctx.beginPath();
+              ctx.arc(px, py, pt.size * 2.2, 0, Math.PI * 2);
+              ctx.fillStyle = phase.fillTop;
+              ctx.fill();
+
+              // Core electron
               ctx.beginPath();
               ctx.arc(px, py, pt.size, 0, Math.PI * 2);
               ctx.fillStyle = phase.particleFill;
