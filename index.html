@@ -175,6 +175,36 @@
       overflow: hidden;
     }
 
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #ee-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-wrap::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 140px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-wrap .hero {
+      position: relative;
+      z-index: 2;
+    }
+
     .hero {
       min-height: calc(100vh - 72px);
       display: grid;
@@ -1206,49 +1236,52 @@
   </header>
 
   <main id="main-content">
-    <section class="hero shell" id="top" aria-labelledby="hero-title">
-      <div>
-        <p class="eyebrow" data-animate="fade-up">NUS Electrical Engineering</p>
-        <h1 id="hero-title" data-animate="fade-up" style="animation-delay: 100ms">Hi, I'm <span>Wei Guang.</span></h1>
-        <p class="hero-subtitle" data-animate="fade-up" style="animation-delay: 200ms">Electrical Engineering undergraduate at NUS, specialising in Sustainable Electric Transportation.</p>
-        <p class="hero-summary" data-animate="fade-up" style="animation-delay: 300ms">
-          Focused on power systems, rolling stock engineering, and reliability in transit operations.
-        </p>
+    <div class="hero-wrap">
+      <canvas id="ee-canvas" aria-hidden="true"></canvas>
+      <section class="hero shell" id="top" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow" data-animate="fade-up">NUS Electrical Engineering</p>
+          <h1 id="hero-title" data-animate="fade-up" style="animation-delay: 100ms">Hi, I'm <span>Wei Guang.</span></h1>
+          <p class="hero-subtitle" data-animate="fade-up" style="animation-delay: 200ms">Electrical Engineering undergraduate at NUS, specialising in Sustainable Electric Transportation.</p>
+          <p class="hero-summary" data-animate="fade-up" style="animation-delay: 300ms">
+            Focused on power systems, rolling stock engineering, and reliability in transit operations.
+          </p>
 
-        <div class="hero-actions" data-animate="fade-up" style="animation-delay: 400ms">
-          <a class="button button-primary" href="#projects">
-            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
-            View my work
-          </a>
-          <a class="button button-secondary" href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-            LinkedIn
-          </a>
-          <a class="button button-secondary" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-            GitHub
-          </a>
+          <div class="hero-actions" data-animate="fade-up" style="animation-delay: 400ms">
+            <a class="button button-primary" href="#projects">
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+              View my work
+            </a>
+            <a class="button button-secondary" href="https://www.linkedin.com/in/weiguanglok" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+              LinkedIn
+            </a>
+            <a class="button button-secondary" href="https://github.com/weiguanglok" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+              GitHub
+            </a>
+          </div>
         </div>
-      </div>
 
-      <aside class="profile-card" aria-label="Profile photograph" data-animate="scale-in" style="animation-delay: 500ms">
-        <div class="profile-visual">
-          <img
-            src="assets/Profile Image.jpg"
-            alt="Portrait of Wei Guang Lok"
-            width="600"
-            height="750"
-            decoding="async"
-            onerror="this.hidden=true; this.nextElementSibling.style.display='grid';"
-          >
-          <div class="profile-fallback" aria-hidden="true">WL</div>
-        </div>
-        <div class="profile-caption">
-          <span class="status"><span class="status-dot" aria-hidden="true"></span>Open to learning and collaboration</span>
-          <span>Singapore</span>
-        </div>
-      </aside>
-    </section>
+        <aside class="profile-card" aria-label="Profile photograph" data-animate="scale-in" style="animation-delay: 500ms">
+          <div class="profile-visual">
+            <img
+              src="assets/Profile Image.jpg"
+              alt="Portrait of Wei Guang Lok"
+              width="600"
+              height="750"
+              decoding="async"
+              onerror="this.hidden=true; this.nextElementSibling.style.display='grid';"
+            >
+            <div class="profile-fallback" aria-hidden="true">WL</div>
+          </div>
+          <div class="profile-caption">
+            <span class="status"><span class="status-dot" aria-hidden="true"></span>Open to learning and collaboration</span>
+            <span>Singapore</span>
+          </div>
+        </aside>
+      </section>
+    </div>
 
     <section class="section shell" id="about" aria-labelledby="about-title">
       <div class="section-heading">
@@ -1598,6 +1631,231 @@
         el.addEventListener("animationend", onAnimEnd);
         observer.observe(el);
       });
+
+      /* ── Three-Phase AC Power Waves Dynamic Background ── */
+      (function initThreePhaseWaves() {
+        var canvas = document.getElementById("ee-canvas");
+        var heroWrap = document.querySelector(".hero-wrap");
+        if (!canvas || !heroWrap) return;
+
+        var ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        var width = 0;
+        var height = 0;
+        var dpr = 1;
+        var animId = null;
+        var isVisible = true;
+        var time = 0;
+
+        var mouse = {
+          x: -1000,
+          y: -1000,
+          targetStrength: 0,
+          strength: 0
+        };
+
+        // 3-Phase configuration: 120° (2π/3 rad) phase separation
+        var phases = [
+          {
+            name: "Phase A",
+            offset: 0,
+            stroke: "rgba(96, 165, 250, 0.45)",       // Electric blue (#60a5fa)
+            fillTop: "rgba(96, 165, 250, 0.07)",
+            particleFill: "rgba(224, 242, 254, 0.95)",
+            particleGlow: "#60a5fa",
+            speedMult: 1.0,
+            particles: []
+          },
+          {
+            name: "Phase B",
+            offset: (2 * Math.PI) / 3,                 // +120°
+            stroke: "rgba(56, 189, 248, 0.40)",       // Sky cyan (#38bdf8)
+            fillTop: "rgba(56, 189, 248, 0.05)",
+            particleFill: "rgba(186, 230, 253, 0.95)",
+            particleGlow: "#38bdf8",
+            speedMult: 1.05,
+            particles: []
+          },
+          {
+            name: "Phase C",
+            offset: (4 * Math.PI) / 3,                 // +240°
+            stroke: "rgba(129, 140, 248, 0.35)",      // Electric indigo (#818cf8)
+            fillTop: "rgba(129, 140, 248, 0.05)",
+            particleFill: "rgba(224, 231, 255, 0.95)",
+            particleGlow: "#818cf8",
+            speedMult: 0.95,
+            particles: []
+          }
+        ];
+
+        // Seed traveling charge packets (electrons)
+        var particlesPerPhase = 6;
+        phases.forEach(function (phase) {
+          for (var i = 0; i < particlesPerPhase; i++) {
+            phase.particles.push({
+              progress: (i / particlesPerPhase) + (Math.random() * 0.08),
+              speed: 0.0007 + Math.random() * 0.0004,
+              size: 1.6 + Math.random() * 1.2
+            });
+          }
+        });
+
+        function resize() {
+          var rect = heroWrap.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          if (prefersReducedMotion) {
+            renderFrame();
+          }
+        }
+
+        window.addEventListener("resize", resize, { passive: true });
+        resize();
+
+        heroWrap.addEventListener("mousemove", function (e) {
+          var rect = heroWrap.getBoundingClientRect();
+          mouse.x = e.clientX - rect.left;
+          mouse.y = e.clientY - rect.top;
+          mouse.targetStrength = 1;
+        }, { passive: true });
+
+        heroWrap.addEventListener("mouseleave", function () {
+          mouse.targetStrength = 0;
+        }, { passive: true });
+
+        // Wave mathematical function
+        function getWaveY(x, t, phaseOffset) {
+          var wavelength = Math.max(width * 0.65, 520);
+          var k = (2 * Math.PI) / wavelength;
+          var baseY = height * 0.54;
+          var amp = Math.min(height * 0.14, 62);
+
+          // Primary fundamental AC sine wave
+          var fundamental = Math.sin(k * x - t + phaseOffset);
+          // Subtle harmonic (simulating inverter/traction PWM frequency components)
+          var harmonic = 0.15 * Math.sin(2.2 * k * x - 1.4 * t + phaseOffset * 1.5);
+          // Very gentle breathing envelope
+          var envelope = 1 + 0.08 * Math.sin(t * 0.35 + phaseOffset);
+
+          var y = baseY + (fundamental + harmonic) * amp * envelope;
+
+          // Interactive magnetic deflection near cursor
+          if (mouse.strength > 0.001) {
+            var dx = x - mouse.x;
+            var dist = Math.abs(dx);
+            var spread = 180;
+            if (dist < spread) {
+              var factor = 1 - dist / spread;
+              factor = factor * factor * (3 - 2 * factor); // smoothstep
+              y += (mouse.y - y) * 0.18 * factor * mouse.strength;
+            }
+          }
+
+          return y;
+        }
+
+        function renderFrame() {
+          ctx.clearRect(0, 0, width, height);
+
+          // Update mouse smoothing
+          mouse.strength += (mouse.targetStrength - mouse.strength) * 0.06;
+
+          // Render each of the 3 phases
+          for (var p = 0; p < phases.length; p++) {
+            var phase = phases[p];
+
+            // 1) Trace wave curve
+            ctx.beginPath();
+            var step = 6;
+            for (var x = 0; x <= width + step; x += step) {
+              var y = getWaveY(x, time * phase.speedMult, phase.offset);
+              if (x === 0) {
+                ctx.moveTo(x, y);
+              } else {
+                ctx.lineTo(x, y);
+              }
+            }
+
+            // 2) Stroke phase line
+            ctx.strokeStyle = phase.stroke;
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            // 3) Subtle gradient fill below the wave to canvas bottom
+            ctx.lineTo(width, height);
+            ctx.lineTo(0, height);
+            ctx.closePath();
+
+            var gradient = ctx.createLinearGradient(0, height * 0.3, 0, height);
+            gradient.addColorStop(0, phase.fillTop);
+            gradient.addColorStop(1, "rgba(11, 16, 32, 0)");
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // 4) Traveling charge packets (electrons along power transmission line)
+            for (var i = 0; i < phase.particles.length; i++) {
+              var pt = phase.particles[i];
+              if (!prefersReducedMotion) {
+                pt.progress = (pt.progress + pt.speed) % 1;
+              }
+              var px = pt.progress * width;
+              var py = getWaveY(px, time * phase.speedMult, phase.offset);
+
+              ctx.beginPath();
+              ctx.arc(px, py, pt.size, 0, Math.PI * 2);
+              ctx.fillStyle = phase.particleFill;
+              ctx.shadowColor = phase.particleGlow;
+              ctx.shadowBlur = 8;
+              ctx.fill();
+              ctx.shadowBlur = 0;
+            }
+          }
+        }
+
+        var lastTimestamp = 0;
+        function loop(timestamp) {
+          if (!isVisible) {
+            animId = null;
+            return;
+          }
+
+          if (!lastTimestamp) lastTimestamp = timestamp;
+          var delta = (timestamp - lastTimestamp) / 1000;
+          lastTimestamp = timestamp;
+
+          // Cap delta to prevent jump after tab switch
+          if (delta > 0.1) delta = 0.016;
+
+          time += delta * 1.5; // Controls wave frequency/drift speed
+          renderFrame();
+
+          animId = requestAnimationFrame(loop);
+        }
+
+        if (prefersReducedMotion) {
+          renderFrame();
+        } else {
+          // Pause when hero is out of viewport to preserve battery & CPU
+          var heroVisibilityObserver = new IntersectionObserver(function (entries) {
+            isVisible = entries[0].isIntersecting;
+            if (isVisible && !animId) {
+              lastTimestamp = 0;
+              animId = requestAnimationFrame(loop);
+            }
+          }, { threshold: 0.05 });
+
+          heroVisibilityObserver.observe(heroWrap);
+        }
+      })();
     });
   </script>
 </body>
