@@ -119,6 +119,20 @@
       background: var(--border);
     }
 
+    .scroll-progress-line {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, #2563eb 0%, #3b82f6 35%, #60a5fa 70%, #38bdf8 92%, #ffffff 100%);
+      transform-origin: left center;
+      transform: scaleX(0);
+      opacity: 0;
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.85), 0 0 20px rgba(56, 189, 248, 0.6);
+      z-index: 60;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
     .nav {
       min-height: 72px;
       display: flex;
@@ -190,7 +204,8 @@
         box-shadow var(--transition);
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links a.active {
       transform: translateY(-2px);
       border-color: rgba(96, 165, 250, 0.55);
       background: var(--card-hover);
@@ -1276,6 +1291,7 @@
 	  <li><a href="#contact">Contact</a></li>
 	</ul>
     </nav>
+    <div class="scroll-progress-line" id="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main-content">
@@ -1615,6 +1631,63 @@
           if (window.innerWidth > 700) setMenuState(false);
         });
       }
+
+      /* ── Transmission Line Reading Progress & ScrollSpy ── */
+      (function initScrollProgressAndSpy() {
+        var progressBar = document.getElementById("scroll-progress");
+        var navLinks = document.querySelectorAll(".nav-links a");
+        var spySections = document.querySelectorAll("main section[id]");
+
+        var isTicking = false;
+        function updateProgress() {
+          var scrollTop = window.scrollY || document.documentElement.scrollTop;
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+          // 1) Transmission line progress
+          if (progressBar) {
+            var progress = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
+            progressBar.style.transform = "scaleX(" + progress + ")";
+            progressBar.style.opacity = scrollTop > 15 ? "1" : "0";
+          }
+
+          // 2) ScrollSpy active section highlighting
+          var currentId = "";
+          spySections.forEach(function (section) {
+            var top = section.offsetTop - 140;
+            var height = section.offsetHeight;
+            if (scrollTop >= top && scrollTop < top + height) {
+              currentId = section.getAttribute("id");
+            }
+          });
+
+          navLinks.forEach(function (link) {
+            var href = link.getAttribute("href");
+            if (currentId && href === "#" + currentId) {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          });
+
+          isTicking = false;
+        }
+
+        window.addEventListener("scroll", function () {
+          if (!isTicking) {
+            requestAnimationFrame(updateProgress);
+            isTicking = true;
+          }
+        }, { passive: true });
+
+        window.addEventListener("resize", function () {
+          if (!isTicking) {
+            requestAnimationFrame(updateProgress);
+            isTicking = true;
+          }
+        }, { passive: true });
+
+        updateProgress();
+      })();
 
       /* ── Entrance Animations ── */
 
