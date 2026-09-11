@@ -1651,14 +1651,19 @@
           }
 
           // 2) ScrollSpy active section highlighting
+          var isAtBottom = (window.innerHeight + scrollTop) >= (document.documentElement.scrollHeight - 50);
           var currentId = "";
-          spySections.forEach(function (section) {
-            var top = section.offsetTop - 140;
-            var height = section.offsetHeight;
-            if (scrollTop >= top && scrollTop < top + height) {
-              currentId = section.getAttribute("id");
-            }
-          });
+
+          if (isAtBottom) {
+            currentId = "contact";
+          } else {
+            spySections.forEach(function (section) {
+              var rect = section.getBoundingClientRect();
+              if (rect.top <= 220 && rect.bottom > 100) {
+                currentId = section.getAttribute("id");
+              }
+            });
+          }
 
           navLinks.forEach(function (link) {
             var href = link.getAttribute("href");
