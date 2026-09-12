@@ -883,22 +883,37 @@
 
     .education-card {
       display: grid;
-      grid-template-columns: 64px 1fr;
+      grid-template-columns: 66px minmax(0, 1fr);
       align-items: start;
-      gap: 1rem;
+      gap: 1.35rem;
+      transition: transform var(--transition), border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+    }
+
+    .education-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(96, 165, 250, 0.45);
+      background: rgba(23, 35, 61, 0.85);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
     }
 
     .education-icon {
-      width: 64px;
-      height: 64px;
-      display: grid;
-      place-items: center;
-      padding: 9px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
+      width: 66px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
       background: #ffffff;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
       flex-shrink: 0;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .education-card:hover .education-icon {
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(96, 165, 250, 0.22);
     }
 
     .education-icon img {
@@ -907,12 +922,124 @@
       object-fit: contain;
     }
 
-    .education-card h3 {
-      font-size: 1.25rem;
+    .education-content {
+      min-width: 0;
     }
 
-    .education-card p {
-      margin-top: 0.35rem;
+    .education-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .education-school {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .education-degree {
+      margin-top: 0.25rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .education-specialisation {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 550;
+    }
+
+    .education-specialisation i {
+      font-size: 0.8rem;
+    }
+
+    .education-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .education-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .education-badge i {
+      font-size: 0.74rem;
+      color: var(--accent);
+    }
+
+    .education-badge--exchange {
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .education-badge--exchange i {
+      color: #38bdf8;
+    }
+
+    .education-coursework {
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.14);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .coursework-label {
+      font-size: 0.8rem;
+      font-weight: 650;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .module-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .module-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.32rem 0.72rem;
+      border-radius: 8px;
+      background: rgba(96, 165, 250, 0.07);
+      border: 1px solid rgba(96, 165, 250, 0.22);
+      color: #cfe2fe;
+      font-size: 0.84rem;
+      font-weight: 550;
+      line-height: 1.35;
+      transition: transform var(--transition), background-color var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .module-tag:hover {
+      background: rgba(96, 165, 250, 0.16);
+      border-color: rgba(96, 165, 250, 0.48);
+      color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .contact-card {
@@ -1259,13 +1386,25 @@
 	  /* Education card */
 	  .education-card {
 	    grid-template-columns: 52px minmax(0, 1fr);
+	    gap: 0.95rem;
+	    padding: 1.15rem;
 	  }
 	
 	  .education-icon {
 	    width: 52px;
 	    height: 52px;
-	    padding: 7px;
-	    border-radius: 13px;
+	    padding: 9px;
+	    border-radius: 12px;
+	  }
+
+	  .education-header {
+	    flex-direction: column;
+	    align-items: flex-start;
+	    gap: 0.5rem;
+	  }
+
+	  .education-school {
+	    font-size: 1.12rem;
 	  }
 	}
 	
@@ -1656,12 +1795,30 @@
           <div class="education-icon">
             <img src="assets/nus-logo.svg" alt="NUS Logo" loading="lazy">
           </div>
-          <div>
-            <h3>National University of Singapore (NUS)</h3>
-            <p><strong>Bachelor of Engineering in Electrical Engineering</strong> | 2023 – 2027</p>
-            <p style="color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem;">
-              <strong>Relevant Modules:</strong> Power Electronics for Sustainable Energy Technologies, Electronic Circuits, Electrical Energy Systems
-            </p>
+          <div class="education-content">
+            <div class="education-header">
+              <div>
+                <h3 class="education-school">National University of Singapore (NUS)</h3>
+                <p class="education-degree">Bachelor of Engineering in Electrical Engineering</p>
+                <p class="education-specialisation">
+                  <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                  Specialisation in Sustainable Electric Transportation
+                </p>
+              </div>
+              <div class="education-badges">
+                <span class="education-badge"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 2023 – 2027</span>
+                <span class="education-badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Singapore</span>
+              </div>
+            </div>
+
+            <div class="education-coursework">
+              <span class="coursework-label">Relevant Modules</span>
+              <div class="module-tags">
+                <span class="module-tag">Power Electronics for Sustainable Energy Technologies</span>
+                <span class="module-tag">Electronic Circuits</span>
+                <span class="module-tag">Electrical Energy Systems</span>
+              </div>
+            </div>
           </div>
         </article>
 
@@ -1669,12 +1826,27 @@
           <div class="education-icon">
             <img src="assets/polyu-logo.svg" alt="PolyU Logo" loading="lazy">
           </div>
-          <div>
-            <h3>The Hong Kong Polytechnic University (PolyU)</h3>
-            <p><strong>Student Exchange Programme, Electrical and Electronic Engineering</strong> | Aug 2025 – Dec 2025</p>
-            <p style="color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem;">
-              <strong>Relevant Modules:</strong> Power Systems, Electrical Machines, Systems and Control
-            </p>
+          <div class="education-content">
+            <div class="education-header">
+              <div>
+                <h3 class="education-school">The Hong Kong Polytechnic University (PolyU)</h3>
+                <p class="education-degree">Student Exchange Programme &bull; Electrical and Electronic Engineering</p>
+              </div>
+              <div class="education-badges">
+                <span class="education-badge education-badge--exchange"><i class="fa-solid fa-plane-departure" aria-hidden="true"></i> Global Exchange</span>
+                <span class="education-badge"><i class="fa-regular fa-calendar" aria-hidden="true"></i> Aug 2025 – Dec 2025</span>
+                <span class="education-badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Hong Kong</span>
+              </div>
+            </div>
+
+            <div class="education-coursework">
+              <span class="coursework-label">Relevant Modules</span>
+              <div class="module-tags">
+                <span class="module-tag">Power Systems</span>
+                <span class="module-tag">Electrical Machines</span>
+                <span class="module-tag">Systems and Control</span>
+              </div>
+            </div>
           </div>
         </article>
       </div>
