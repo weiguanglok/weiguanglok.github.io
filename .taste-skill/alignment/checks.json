@@ -1,0 +1,53 @@
+[
+  {
+    "width": 1440,
+    "cols": [
+      {
+        "id": "rolling-stock",
+        "label": 31.6875,
+        "copy": 625.53125
+      },
+      {
+        "id": "rail-power",
+        "label": 31.6875,
+        "copy": 625.53125
+      }
+    ],
+    "aligned": true,
+    "overflow": false
+  },
+  {
+    "width": 768,
+    "cols": [
+      {
+        "id": "rolling-stock",
+        "label": 20,
+        "copy": 356.859375
+      },
+      {
+        "id": "rail-power",
+        "label": 20,
+        "copy": 356.859375
+      }
+    ],
+    "aligned": true,
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "cols": [
+      {
+        "id": "rolling-stock",
+        "label": 20,
+        "copy": 20
+      },
+      {
+        "id": "rail-power",
+        "label": 20,
+        "copy": 20
+      }
+    ],
+    "aligned": true,
+    "overflow": false
+  }
+]

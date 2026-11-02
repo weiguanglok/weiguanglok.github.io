@@ -1,0 +1,67 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "buttonBottom": 379.453125,
+    "imageLoaded": true
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "buttonBottom": 357.59375,
+    "imageLoaded": true
+  },
+  {
+    "width": 700,
+    "overflow": false,
+    "buttonBottom": 378.515625,
+    "imageLoaded": true
+  },
+  {
+    "width": 768,
+    "overflow": false,
+    "buttonBottom": 412.953125,
+    "imageLoaded": true
+  },
+  {
+    "width": 1000,
+    "overflow": false,
+    "buttonBottom": 412.953125,
+    "imageLoaded": true
+  },
+  {
+    "width": 1100,
+    "overflow": false,
+    "buttonBottom": 453.53125,
+    "imageLoaded": true
+  },
+  {
+    "width": 1440,
+    "overflow": false,
+    "buttonBottom": 661.390625,
+    "imageLoaded": true
+  },
+  {
+    "menuOpen": true
+  },
+  {
+    "escapeClosed": true
+  },
+  {
+    "keyboardOpened": false
+  },
+  {
+    "reducedMotionVisible": true,
+    "brokenAnchors": 0
+  },
+  {
+    "textZoomOverflow": false
+  },
+  {
+    "noScriptTopics": 3,
+    "noScriptFirstOpen": true
+  },
+  {
+    "consoleErrors": []
+  }
+]
